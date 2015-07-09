@@ -10,22 +10,22 @@ jyepoll::jyepoll(int maxev):maxevents(maxev)
 
 	return fepoll;
 }
-void jyepoll::jyepoll_add(int fd;struct epoll_event *event)
+void jyepoll::add(int fd;struct epoll_event *event)
 {
   int ad=epoll_ctl(fepoll,EPOLL_CTL_ADD,fd,event);
 	check(ad==0,"EPOLL_CTL_ADD");
 }
-void jyepoll::jyepoll_del(int fd;struct epoll_event *event)
+void jyepoll::del(int fd;struct epoll_event *event)
 {
 	int ad=epoll_ctl(fepoll,EPOLL_CTL_DEL,fd,event);
 	check(ad==0,"EPOLL_CTL_DEL");
 }
-void jyepoll::jyepoll_mod(int fd;struct epoll_event *event)
+void jyepoll::mod(int fd;struct epoll_event *event)
 {
 	int ad=epoll_ctl(fepoll,EPOLL_CTL_MOD,fd,event);
 	check(ad==0,"EPOLL_CTL_MOD");
 }
-int jyepoll::jyepoll_wait(int timeout)
+int jyepoll::wait(int timeout)
 {
 	int n=epoll_wait(epoll,events,maxevents,timeout);
 	check(n>=0,"epoll_wait");

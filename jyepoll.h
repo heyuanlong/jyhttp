@@ -12,10 +12,10 @@ public:
 	~jyepoll(){ free events; }
 
 
-	void jyepoll_add(int fd;struct epoll_event *event);
-	void jyepoll_del(int fd;struct epoll_event *event);
-	void jyepoll_mod(int fd;struct epoll_event *event);
-	int jyepoll_wait(int timeout);
+	void add(int fd;struct epoll_event *event);
+	void del(int fd;struct epoll_event *event);
+	void mod(int fd;struct epoll_event *event);
+	int wait(int timeout);
 	struct epoll_event& jyepoll_get(int i);
 
 
