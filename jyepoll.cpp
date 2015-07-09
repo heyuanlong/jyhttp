@@ -31,7 +31,7 @@ int jyepoll::wait(int timeout)
 	check(n>=0,"epoll_wait");
 	return n;
 }
-struct epoll_event& jyepoll::jyepoll_get(int i)
+struct epoll_event& jyepoll::get(int i)
 {
 	//如何检查i的值是否合法呢？
 		return events[i];

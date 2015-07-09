@@ -16,8 +16,6 @@ jysock{
   int socketinit();
   int acceptsocket();
 
-
-
 private:
   jysock(jysock &lhs);
   jysock& operator=(jysock &rhs);

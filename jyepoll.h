@@ -16,7 +16,7 @@ public:
 	void del(int fd;struct epoll_event *event);
 	void mod(int fd;struct epoll_event *event);
 	int wait(int timeout);
-	struct epoll_event& jyepoll_get(int i);
+	struct epoll_event& get(int i);
 
 
 private:

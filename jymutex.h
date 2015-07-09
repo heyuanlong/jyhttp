@@ -29,7 +29,10 @@ void unlock()
 	{
 	pthread_mutex_unlock(&mutex);
 	}
-
+pthread_mutex_t & get()
+	{
+		return mutex;
+	}
 private:
     pthread_mutex_t mutex;
 };

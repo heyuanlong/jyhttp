@@ -28,11 +28,11 @@ int jysock::acceptsocket()
 }
 void jysock::set_socket_nonblock(int fd)
 {
-   int flag,s;
-   flag = fcntl(fd,F_GETFL,0);
-   check(flag != -1,"fcntl");
-
-   flag |= O_NONBLOCK;
-   s=fcntl(fd,F_SETFL,flag);
+   int s;
+   s=fcntl(fd,F_SETFL,fcntl(fd,F_GETFL,0) | O_NONBLOCK);
    check(s != -1,"fcntl");
+
+//int  nb;
+//nb = 1;
+//return ioctl(s, FIONBIO, &nb);
 }
