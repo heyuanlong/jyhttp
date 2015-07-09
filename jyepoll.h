@@ -1,4 +1,5 @@
-//
+#ifndef JYEPOLL
+#define JYEPOLL
 
 #include <unistd.h>
 #include <sys/epoll.h>
@@ -8,14 +9,14 @@
 class jyepoll{
 public:
 	jyepoll(int maxev);
-	~jyepoll(){ delete[] events; }
+	~jyepoll(){ free events; }
 
 
-	jyepoll_add(int fd;struct epoll_event *event);
-	jyepoll_del(int fd;struct epoll_event *event);
-	jyepoll_mod(int fd;struct epoll_event *event);
-	jyepoll_wait(int timeout);
-	struct epoll_event & jyepoll_get(int i);
+	void jyepoll_add(int fd;struct epoll_event *event);
+	void jyepoll_del(int fd;struct epoll_event *event);
+	void jyepoll_mod(int fd;struct epoll_event *event);
+	int jyepoll_wait(int timeout);
+	struct epoll_event& jyepoll_get(int i);
 
 
 private:
@@ -26,3 +27,4 @@ private:
 	struct epoll_event *events;
 };
 
+#endif
