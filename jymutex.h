@@ -6,8 +6,6 @@
 //锁被多次释放会怎么样，如何处理
 //答：linux经测试，unlock过多，没有什么影响。
 
-
-
 class hmx_mutex
 {
 public:
