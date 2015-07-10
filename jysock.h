@@ -9,11 +9,12 @@
 #include <arpa/inet.h>
 #include <errno.h>
 
-jysock{
-  jysock(int p):post(p){};
-  ~jysock(){close(serverfd)};
+class jysock{
+public:
+  jysock(){};
+  ~jysock(){close(serverfd);};
 
-  int socketinit();
+  int socketinit(int n);
   int acceptsocket();
   int jyread(int fd,char *buf);
   int jywrite(int fd,char *buf,size_t len);
@@ -25,7 +26,7 @@ private:
 
   int serverfd;
   int port;
-  enum{listennum=128;}
+  enum{listennum=128};
 };
 
 

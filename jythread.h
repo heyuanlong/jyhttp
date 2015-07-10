@@ -9,7 +9,7 @@
 //     hmx_mutex &mut;
 // };
 
-void go_theadpool(int num,std::queue<int> &pfd,hmx_mutex &jlock);
-void workmethod(void *arg);
+void go_theadpool(int num);
+void* workmethod(void *arg);
 
 #endif

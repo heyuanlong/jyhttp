@@ -4,3 +4,6 @@ getopt
 
 http处理
 read and write 安全
+
+
+jyfunctin放杂项函数

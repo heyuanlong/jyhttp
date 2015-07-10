@@ -1,20 +1,25 @@
 #include "jysock.h"
+#include "jylog.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-int jysock::socketinit()
+int jysock::socketinit(int n)
 {
+    port=n;
     serverfd=socket(AF_INET,SOCK_STREAM,0);
     check(serverfd>0,"socket init");
 
     struct sockaddr_in saddr;
-    bzero(&addr,sizeof(addr));
+    bzero(&saddr,sizeof(saddr));
     saddr.sin_family=AF_INET;
     saddr.sin_port = htons(port);
     saddr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-    int b=bind(s_addr,(struct sockaddr *)&saddr,sizeof(strcut sockaddr));
-    check(b>0,"bind");
-    int l=listen(saddr,listennum);
-    check(l>0,"listen");
+    int b=bind(serverfd,(struct sockaddr *)&saddr,sizeof(saddr));
+    check(b == 0,"bind");
+    int l=listen(serverfd,listennum);
+    check(l == 0,"listen");
     set_socket_nonblock(serverfd);
     return serverfd;
 }
@@ -26,16 +31,20 @@ int jysock::acceptsocket()
     }
     return ac;
 }
-int jyread(int fd,char *buf)
+int jysock::jyread(int fd,char *buf)
  {
      int nread;
-     nread=read(fd,buf,1024);
+	 printf("--------recv\n");
+     nread=recv(fd,buf,1024,0);
+	 printf("recv:%d\n",nread);
      return nread;
  }
-int jywrite(int fd,char *buf,size_t len)
+int jysock::jywrite(int fd,char *buf,size_t len)
 {
     int nread;
-    nread=write(fd,buf,len);
+	 printf("--------send\n");
+    nread=send(fd,buf,len,0);
+	printf("send:%d\n",nread);
     return nread;
 }
 

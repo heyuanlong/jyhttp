@@ -8,7 +8,10 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include <jyconf.h>
+#include "jyconf.h"
+
+char logpath[1024]="./jyhttp_log/log.txt";//日志文件
+
 
 int daemon()
 {
