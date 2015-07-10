@@ -21,8 +21,8 @@ std::queue<int> qfd;//网络描述符
 
 
 int main(int argc, char const *argv[]) {
-    int serfd = jsock.socketinit();
-    go_theadpool(THREADNUM,qfd,jlock);
+    int serfd = jsock.socketinit();//开启serversocket
+    go_theadpool(THREADNUM,qfd);//初始化线程组
 
     struct epoll_event serepollevent;
     serepollevent.events=EPOLLIN | EPOLLET;//边缘触发
@@ -40,10 +40,6 @@ int main(int argc, char const *argv[]) {
         pthread_cond_broadcast(&has_product);//通知所有子线程
         jlock.unlock();
     }
-
-
-
-
 
 
   return 0;

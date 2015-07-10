@@ -15,6 +15,8 @@ jysock{
 
   int socketinit();
   int acceptsocket();
+  int jyread(int fd,char *buf);
+  int jywrite(int fd,char *buf,size_t len);
 
 private:
   jysock(jysock &lhs);

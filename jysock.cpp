@@ -26,6 +26,21 @@ int jysock::acceptsocket()
     }
     return ac;
 }
+int jyread(int fd,char *buf)
+ {
+     int nread;
+     nread=read(fd,buf,1024);
+     return nread;
+ }
+int jywrite(int fd,char *buf,size_t len)
+{
+    int nread;
+    nread=write(fd,buf,len);
+    return nread;
+}
+
+
+
 void jysock::set_socket_nonblock(int fd)
 {
    int s;

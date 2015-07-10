@@ -1,10 +1,17 @@
-##include "jythread.h"
+#include "jythread.h"
+#include "jymutex.h"
 
+#include <string.h>
+#include <queue>
+#include <pthread.h>
+
+extern jysock jsock;
 extern pthread_cond_t has_product;
+extern hmx_mutex jlock;
+extern std::queue<int> qfd;
 
-void go_theadpool(int num,std::queue<int> &pfd,hmx_mutex &jlock)
+void go_theadpool(int num,std::queue<int> &pfd)
 {
-    struct thread_arg targ={pfd,jlock};
     pthread_t pid;
     //线程属性
     pthread_attr_t attr;
@@ -13,14 +20,12 @@ void go_theadpool(int num,std::queue<int> &pfd,hmx_mutex &jlock)
 
     int i;
     for ( i = 0; i < num; i++) {
-        pthread_creat(&pid,&attr,workmethod,&targ);
+        pthread_creat(&pid,&attr,workmethod,NULL);
     }
     pthread_attr_destroy(&attr);
 }
 void workmethod(void *arg)
 {
-    std::queue<int> &pfd=(struct thread_arg*)arg->que;
-    hmx_mutex &jlock=(struct thread_arg*)arg->mut;
 
     while(1)
     {
@@ -32,7 +37,13 @@ void workmethod(void *arg)
         pfd.pop();
         jlock.unlock();
             }
-
+        char buf[1024]={0};
+        jysock.jyread(fd,buf);
+        printf("%s\n", buf);
+        buf="HTTP/1.1 200 OK\nServer: nginx\nDate: Fri, 10 Jul 2015 07:33:22 GMT\nContent-Type: application/x-javascript\nConnection: keep-alive\nLast-Modified: Fri, 16 Jan 2015 09:34:29 GMT\nVary: Accept-Encoding\nExpires: Wed, 06 Jan 2016 07:33:22 GMT\nCache-Control: max-age=15552000\nContent-Length: 19467\n\n
+        <html><body>dddddddddddddd</body></html>";
+        jysock.jywrite(fd,buf,strlen(buf));
+        memset(buf,0,sizeof(buf));
         ///work
     }
 }
