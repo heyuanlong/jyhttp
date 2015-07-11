@@ -59,15 +59,15 @@ epollevent.events=EPOLLIN | EPOLLET;//边缘触发
             int ac=jsock.acceptsocket();
             epollevent.data.fd=ac;
             jepoll.add(ac,&epollevent);
+            printf("get a fd:%d\n", ac);
             continue;
         }
         char buf[1024]={0};
-		printf("1\n");
+		debug(go);
         jsock.jyread(fd,buf);
+        //printf("%s\n", buf);
 
-        printf("%s\n", buf);
-
-    //     HTTP/1.1 200 OK
+    // HTTP/1.1 200 OK
     // Server: Apache-Coyote/1.1
     // P3P: CP="NOI DEVa TAIa OUR BUS UNI"
     // Cache-Control: no-cache
@@ -79,13 +79,17 @@ epollevent.events=EPOLLIN | EPOLLET;//边缘触发
     // Date: Fri, 10 Jul 2015 09:41:51 GMT
     // Connection: close
     // Set-Cookie: gray=82493; Max-Age=30758400; Path=/; Domain=.yhd.com
-    // 
-    // null   
+    //
+    // null
 
         strcpy(buf,"HTTP/1.1 200 OK\nServer: jyhttp\nContent-Type: text/html;charset=UTF-8\nContent-Length: 40\r\n\r\n<html><body>dddddddddddddd</body></html>");
-       printf("%s\n",buf );
+        printf("%s\n",buf );
         jsock.jywrite(fd,buf,strlen(buf));
         memset(buf,0,sizeof(buf));
+
+
+        jepoll.del(fd,&epollevent);
+        close(fd);
         ///work
     }
 }

@@ -10,6 +10,11 @@
 #include "jymutex.h"
 #include "jysock.h"
 #include "jythread.h"
+#include "jyfunction.h"
+
+
+#define  DEBUG
+
 
 const int MAXEVENTS=1024;
 const int PORT=6004;
@@ -29,6 +34,11 @@ int main(int argc, char const *argv[]) {
 	serverfd=serfd;
     go_theadpool(THREADNUM);//初始化线程组
 
+    setsignal();//设置signal处理
+
+
+
+
     struct epoll_event serepollevent;
     serepollevent.events=EPOLLIN | EPOLLET;//边缘触发
     serepollevent.data.fd=serfd;
@@ -40,6 +50,7 @@ int main(int argc, char const *argv[]) {
         n=jepoll.wait(-1);//timeout为-1，表阻塞
         jlock.lock();
         for ( i = 0; i < n; i++) {
+            printf("%d->", jepoll.get(i).data.fd);
             qfd.push(jepoll.get(i).data.fd);
         }
         pthread_cond_broadcast(&has_product);//通知所有子线程

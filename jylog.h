@@ -14,7 +14,7 @@
 
 
 
-#ifndef DEBUG
+#ifdef DEBUG
   #define  debug(M,...) fprintf(stdout, "DEBUG %s:%d: --->" M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
   #else
    #define  debug(M,...)

@@ -2,8 +2,9 @@
 read网络描述符
 getopt
 
-http处理
-read and write 安全
 
 
 jyfunctin放杂项函数
+
+
+简单版：没有关闭网络描述符，没有从epoll中去除，read和write不稳定
