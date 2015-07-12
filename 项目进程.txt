@@ -1,10 +1,8 @@
 配置加载   ok
-read网络描述符
+
 getopt
 
 
 
-jyfunctin放杂项函数
-
-
-简单版：没有关闭网络描述符，没有从epoll中去除，read和write不稳定
+没有关闭网络描述符，没有从epoll中去除 ok
+read和write不稳定

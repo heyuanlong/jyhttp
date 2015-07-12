@@ -14,6 +14,7 @@ extern jyepoll jepoll;
 extern jysock jsock;
 extern pthread_cond_t has_product;
 extern hmx_mutex jlock;
+extern jyhttp jhttp;
 extern std::queue<int> qfd;
 
 
@@ -62,9 +63,15 @@ epollevent.events=EPOLLIN | EPOLLET;//边缘触发
             printf("get a fd:%d\n", ac);
             continue;
         }
-        char buf[1024]={0};
+        char request[1024]={0};
+        char response[1048576]={0};//1M
 		debug(go);
-        jsock.jyread(fd,buf);
+        jsock.jyread(fd,request);
+        jhttp.run(request,response);
+        //
+
+
+
         //printf("%s\n", buf);
 
     // HTTP/1.1 200 OK
@@ -81,6 +88,10 @@ epollevent.events=EPOLLIN | EPOLLET;//边缘触发
     // Set-Cookie: gray=82493; Max-Age=30758400; Path=/; Domain=.yhd.com
     //
     // null
+
+
+    //jsock.jywrite(fd,response,strlen(response));
+    //memset(buf,0,sizeof(request));
 
         strcpy(buf,"HTTP/1.1 200 OK\nServer: jyhttp\nContent-Type: text/html;charset=UTF-8\nContent-Length: 40\r\n\r\n<html><body>dddddddddddddd</body></html>");
         printf("%s\n",buf );
