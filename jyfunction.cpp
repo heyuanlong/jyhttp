@@ -23,3 +23,31 @@ void setsignal()
     sigaction(SIGPIPE,&actionpipe,0);
 
 }
+
+void read_conf(const char *file,int &maxe,int &p,int &n,char *logpath)
+{
+    FILE* fp=fopen(file,"r");
+    check(fp != NULL,"open conf_file");
+    char buf[1024]={0};
+	int len;
+
+    while(fgets(buf,1024,fp))
+    {
+		len=strlen(buf);
+		if(buf[len-1]=='\n')buf[len-1]='\0';
+
+		if(	strncmp(buf,"maxevents",9) == 0)//maxevents=1024
+			maxe=atoi(buf+9+1);
+		if(	strncmp(buf,"port",4) == 0)
+			p=atoi(buf+4+1);
+		if(	strncmp(buf,"threadnum",9) == 0)
+			n=atoi(buf+9+1);
+		if(	strncmp(buf,"logpath",7) == 0)
+			strcpy(logpath,buf+7+1);
+
+        check(maxe>0,"conf maxevents");
+        check(p>0,"conf port");
+        check(n>0,"conf threadnum");
+
+    }
+}
