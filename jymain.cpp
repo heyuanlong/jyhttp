@@ -16,9 +16,9 @@
 #define  DEBUG
 
  const char *conf_file="./conf.txt";
- int MAXEVENTS=1024;
- int PORT=6004;
- int THREADNUM=6;
+ int MAXEVENTS;
+ int PORT;
+ int THREADNUM;
  char logpath[1024];
 
 jysock jsock;
@@ -31,15 +31,16 @@ std::queue<int> qfd;//网络描述符
 int serverfd;
 
 int main(int argc, char const *argv[]) {
+
     read_conf(conf_file,MAXEVENTS,PORT,THREADNUM,logpath);
+    my_getopt(PORT,THREADNUM);
+
+
     jepoll.jyepollinit(MAXEVENTS);
     int serfd = jsock.socketinit(PORT);//开启serversocket
 	serverfd=serfd;
     go_theadpool(THREADNUM);//初始化线程组
-
     setsignal();//设置signal处理
-
-
 
 
     struct epoll_event serepollevent;

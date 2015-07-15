@@ -1,17 +1,19 @@
  #include <unistd.h>
-       #include <stdlib.h>
-       #include <stdio.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
        int
        main(int argc, char *argv[])
        {
            int flags, opt;
            int nsecs, tfnd;
+		   char test[20]={0};
 
            nsecs = 0;
            tfnd = 0;
            flags = 0;
-           while ((opt = getopt(argc, argv, "nt:")) != -1) {
+           while ((opt = getopt(argc, argv, "nt:a:")) != -1) {
                switch (opt) {
                case 'n':
                    flags = 1;
@@ -19,6 +21,10 @@
                case 't':
                    nsecs = atoi(optarg);
                    tfnd = 1;
+                   break;
+			   case 'a': 
+					strcpy(test,optarg);//使用copy
+			        printf("%s",test);
                    break;
                default: /* '?' */
                    fprintf(stderr, "Usage: %s [-t nsecs] [-n] name\n",

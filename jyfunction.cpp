@@ -51,3 +51,21 @@ void read_conf(const char *file,int &maxe,int &p,int &n,char *logpath)
 
     }
 }
+
+
+
+void my_getopt(int &p,int &n)
+{
+    int opt;
+    while ((opt = getopt(argc, argv, "p:n:")) != -1) {
+              switch (opt) {
+              case 'p':
+                  p = atoi(optarg);
+                  break;
+              case 'n':
+                  n = atoi(optarg);
+                  break;
+              default: /* '?' */
+              }
+      }
+}
