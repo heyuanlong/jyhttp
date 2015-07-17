@@ -2,13 +2,13 @@
 #include <queue>
 #include <pthread.h>
 
-#include "jyconf.h"
 #include "jylog.h"
 #include "jyepoll.h"
 
 #include "jymutex.h"
 #include "jysock.h"
 #include "jythread.h"
+#include "jyhttp.h"
 
 extern jyepoll jepoll;
 extern jysock jsock;
@@ -93,10 +93,10 @@ epollevent.events=EPOLLIN | EPOLLET;//边缘触发
     //jsock.jywrite(fd,response,strlen(response));
     //memset(buf,0,sizeof(request));
 
-        strcpy(buf,"HTTP/1.1 200 OK\nServer: jyhttp\nContent-Type: text/html;charset=UTF-8\nContent-Length: 40\r\n\r\n<html><body>dddddddddddddd</body></html>");
-        printf("%s\n",buf );
-        jsock.jywrite(fd,buf,strlen(buf));
-        memset(buf,0,sizeof(buf));
+        strcpy(response,"HTTP/1.1 200 OK\nServer: jyhttp\nContent-Type: text/html;charset=UTF-8\nContent-Length: 40\r\n\r\n<html><body>dddddddddddddd</body></html>");
+        printf("%s\n",response );
+        jsock.jywrite(fd,response,strlen(response));
+        memset(response,0,sizeof(response));
 
 
         jepoll.del(fd,&epollevent);
@@ -104,3 +104,28 @@ epollevent.events=EPOLLIN | EPOLLET;//边缘触发
         ///work
     }
 }
+
+
+
+
+
+// HTTP/1.1 200 OK
+// Server: JSP3/2.0.8
+// Date: Wed, 15 Jul 2015 09:06:34 GMT
+// Content-Type: image/jpeg
+// Content-Length: 37960
+// Connection: keep-alive
+// ETag: b1d2062a8a094f493056bd4a4893a817
+// Last-Modified: Thu, 01 Jan 1970 00:00:00 GMT
+// Expires: Thu, 23 Jul 2015 20:15:58 GMT
+// Age: 1896636
+// Cache-Control: max-age=2628000
+// Access-Control-Allow-Origin: *
+// Timing-Allow-Origin: http://pos.baidu.com
+//
+//      JFIF   
+
+
+//Content-Type: image/png
+//Content-Type: image/gif
+    //

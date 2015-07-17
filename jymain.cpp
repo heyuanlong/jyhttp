@@ -3,7 +3,7 @@
 #include <pthread.h>
 #include <queue>
 
-#include "jyconf.h"
+
 #include "jylog.h"
 #include "jyepoll.h"
 #include "jydaemon.h"
@@ -11,7 +11,7 @@
 #include "jysock.h"
 #include "jythread.h"
 #include "jyfunction.h"
-
+#include "jyhttp.h"
 
 #define  DEBUG
 
@@ -30,10 +30,10 @@ std::queue<int> qfd;//网络描述符
 
 int serverfd;
 
-int main(int argc, char const *argv[]) {
+int main(int argc, char *argv[]) {
 
     read_conf(conf_file,MAXEVENTS,PORT,THREADNUM,logpath);
-    my_getopt(PORT,THREADNUM);
+    my_getopt(argc,argv,PORT,THREADNUM);
 
 
     jepoll.jyepollinit(MAXEVENTS);
