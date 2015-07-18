@@ -1,4 +1,0 @@
-maxevents=1024
-port=6000
-threadnum=8
-logpath=./jyhttp_log/log.txt
