@@ -58,7 +58,8 @@ epollevent.events=EPOLLIN | EPOLLET;//边缘触发
 
         if(fd==serverfd){
             int ac=jsock.acceptsocket();
-            epollevent.data.fd=ac;
+            if (ac == -1)continue;
+
             jepoll.add(ac,&epollevent);
             printf("get a fd:%d\n", ac);
             continue;
