@@ -99,8 +99,12 @@ epollevent.events=EPOLLIN | EPOLLET;//边缘触发
         memset(response,0,sizeof(response));
 
 
-        jepoll.del(fd,&epollevent);
-        close(fd);
+    //    jepoll.del(fd,&epollevent);//某些情况会报错
+    //    close(fd);///可能重复关闭
+
+    //如何保持长链接，何时关闭链接，如何保证不会重复jepoll.del和close
+    //短链接呢？   http的知识不够！！！！
+
         ///work
     }
 }

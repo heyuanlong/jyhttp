@@ -26,7 +26,7 @@ int jysock::socketinit(int n)
 int jysock::acceptsocket()
 {
     int ac=accept(serverfd,NULL,0);
-    if (ac>0) {
+    if (ac>=0) {
         set_socket_nonblock(ac);
     }
     return ac;
@@ -34,17 +34,17 @@ int jysock::acceptsocket()
 int jysock::jyread(int fd,char *buf)
  {
      int nread;
-	 printf("--------recv\n");
+	 printf("下面是recv\n");
      nread=recv(fd,buf,1024,0);
-	 printf("recv:%d\n",nread);
+	 printf("recv:%d\n-------revc 完毕\n",nread);
      return nread;
  }
 int jysock::jywrite(int fd,char *buf,size_t len)
 {
     int nread;
-	 printf("--------send\n");
+	 printf("下面是send\n");
     nread=send(fd,buf,len,0);
-	printf("send:%d\n",nread);
+	printf("send:%d\n--------send 完毕\n",nread);
     return nread;
 }
 

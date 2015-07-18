@@ -46,6 +46,7 @@ void read_conf(const char *file,int &maxe,int &p,int &n,char *logpath)
 			strcpy(logpath,buf+strlen("logpath "));
 
     }
+    printf("here is jyfunction-read_conf:m:%d p:%d n:%d path:%s\n",maxe,p,n,logpath );
         check(maxe>0,"conf maxevents");
         check(p>0,"conf port");
         check(n>0,"conf threadnum");
@@ -68,4 +69,5 @@ void my_getopt(int argc, char *argv[],int &p,int &n)
                   ;
               }
       }
+      printf("here is jyfunction:my_getopt:p:%d n:%d\n",p,n);
 }
