@@ -1,4 +1,4 @@
-配置加载   ok
+﻿配置加载   ok
 
 getopt
 
@@ -6,3 +6,5 @@ getopt
 
 没有关闭网络描述符，没有从epoll中去除 ok
 read和write不稳定
+
+

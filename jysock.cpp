@@ -35,7 +35,9 @@ int jysock::jyread(int fd,char *buf)
  {
      int nread;
 	 printf("下面是recv\n");
-     nread=recv(fd,buf,1024,0);
+
+     //nread=recv(fd,buf,1024,0);
+     nread=jyreadn(fd,buf,1024);
 	 printf("recv:%d\n-------revc 完毕\n",nread);
      return nread;
  }
@@ -43,7 +45,8 @@ int jysock::jywrite(int fd,char *buf,size_t len)
 {
     int nread;
 	 printf("下面是send\n");
-    nread=send(fd,buf,len,0);
+    //nread=send(fd,buf,len,0);
+    nread = jywriten(fd,buf,len);
 	printf("send:%d\n--------send 完毕\n",nread);
     return nread;
 }
@@ -59,4 +62,51 @@ void jysock::set_socket_nonblock(int fd)
 //int  nb;
 //nb = 1;
 //return ioctl(s, FIONBIO, &nb);
+}
+
+ssize_t jysock::jyreadn(int fd,void *ptr,size_t n)
+{
+    size_t nleft;
+    ssize_t nread;
+    nleft=n;
+    while (nleft > 0 ) {
+        if ( (nread = read(fd,ptr,nleft)) <0 ) {
+            if (nleft  == n)
+                return -1;
+            else
+                break;
+        }
+        else if(nread == 0) {
+                break;
+            }
+
+        nleft -=nread;
+        ptr +=nread;
+
+    }
+    return (n-nleft);
+}
+
+
+ssize_t jysock::jywriten(int fd,void const *ptr,size_t n)
+{
+    size_t nleft;
+    ssize_t nwrite;
+    nleft=n;
+
+    while (nleft > 0) {
+        if ( (nwrite = write(fd,ptr,nleft)) <0 ) {
+            if (nleft == n)
+                return -1;
+            else
+                break;
+        }
+        else if (nwrite == 0) {
+                break;
+            }
+
+        nleft -=nwrite;
+        ptr +=nwrite;
+    }
+    return (n-nleft);
 }

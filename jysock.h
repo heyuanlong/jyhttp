@@ -24,6 +24,9 @@ private:
   jysock& operator=(jysock &rhs);
   void set_socket_nonblock(int fd);
 
+  ssize_t jyreadn(int fd,void *ptr,size_t n);
+  ssize_t jywriten(int fd,void const *ptr,size_t n);
+
   int serverfd;
   int port;
   enum{listennum=128};
