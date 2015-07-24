@@ -70,7 +70,7 @@ ssize_t jysock::jyreadn(int fd,char *ptr,size_t n)
     ssize_t nread;
     nleft=n;
     while (nleft > 0 ) {
-        if ( (nread = read(fd,ptr,nleft)) <0 ) {
+        if ( (nread = recv(fd,ptr,nleft,0)) <0 ) {
             if (nleft  == n)
                 return -1;
             else
@@ -95,7 +95,7 @@ ssize_t jysock::jywriten(int fd,const char *ptr,size_t n)
     nleft=n;
 
     while (nleft > 0) {
-        if ( (nwrite = write(fd,ptr,nleft)) <0 ) {
+        if ( (nwrite = send(fd,ptr,nleft,0)) <0 ) {
             if (nleft == n)
                 return -1;
             else
