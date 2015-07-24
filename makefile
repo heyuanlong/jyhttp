@@ -1,9 +1,14 @@
 #makefile
-.PHONY:clean
+.PHONY:clean all
 #防止clean时出错而中断
 
 CC1=g++ -std=c++11
 CC=g++ -c -std=c++11
+
+all:main client
+
+client:client.cpp
+	$(CC1) -o client
 
 main:jymain.o jythead.o jysock.o jyfunction.o jyepoll.o jyhttp.o
 	$(CC1) jymain.o jythead.o jysock.o jyfunction.o jyepoll.o jyhttp.o -o main -lpthread
