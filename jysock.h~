@@ -25,7 +25,7 @@ private:
   void set_socket_nonblock(int fd);
 
   ssize_t jyreadn(int fd,char *ptr,size_t n);
-  ssize_t jywriten(int fd,const char *ptr,size_t n);
+  ssize_t jywriten(int fd,void char *ptr,size_t n);
 
   int serverfd;
   int port;
