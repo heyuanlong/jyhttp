@@ -24,15 +24,13 @@ int main(int argc, char const *argv[])
 	char sendbuf[1024]="123456789";
 
 
-		size_t len=strlen(sendbuf);
-		ssize_t sendnum=0;
-		while(sendnum < len)
-		  sendnum=send(clientSocket,sendbuf+sendnum,len-sendnum,0);
-
+	size_t len=strlen(sendbuf);
+	ssize_t sendnum=0;
+	//while(sendnum < len)
+	  sendnum=send(clientSocket,sendbuf,len,0);
 
 
 		ssize_t recvnum=0;
-		while(recvnum < len)
 		recvnum=recv(clientSocket,recvbuf+recvnum,1024,0);
 	    recvbuf[recvnum]='\0';
 	    printf("%s\n", recvbuf);
@@ -56,7 +54,7 @@ int clientConnectServer(char const *ip, int port)
 		perror("client socket");
 		exit(1);
 	}
-	
+
 	//connetc
 	struct sockaddr_in clientSockAddr;
 	memset(&clientSockAddr, 0, sizeof(clientSockAddr));

@@ -38,7 +38,7 @@ int jysock::jyread(int fd,char *buf)
 
      nread=recv(fd,buf,1024,0);
     // nread=jyreadn(fd,buf,1024);
-	 printf("recv:%d\n-------revc 完毕\n",nread);
+	 printf("recv:%d-------revc 完毕\n",nread);
      return nread;
  }
 int jysock::jywrite(int fd,char *buf,size_t len)

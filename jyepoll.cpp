@@ -18,6 +18,7 @@ void jyepoll::jyepollinit(int maxev)
 }
 void jyepoll::add(int fd,struct epoll_event *event)
 {
+	printf("epoll add %d 描述符\n",fd );
   int ad=epoll_ctl(fepoll,EPOLL_CTL_ADD,fd,event);
 	check(ad==0,"EPOLL_CTL_ADD");
 }

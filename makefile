@@ -27,4 +27,4 @@ jyhttp.o:
 
 
 clean:#可以在命令中输入 make clean 来执行这个规则
-	$(RM) *.o main
+	$(RM) *.o main client

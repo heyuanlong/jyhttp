@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
 
 
     struct epoll_event serepollevent;
-    serepollevent.events=EPOLLIN | EPOLLET;//边缘触发 
+    serepollevent.events=EPOLLIN | EPOLLET;//边缘触发
     serepollevent.data.fd=serfd;
     jepoll.add(serfd,&serepollevent);
 
@@ -53,21 +53,22 @@ int main(int argc, char *argv[]) {
     {
         n=jepoll.wait(-1);//timeout为-1，表阻塞
         jlock.lock();
+        printf("epoll wait 到 %d 个描述符\n", n);
         for ( i = 0; i < n; i++) {
 
-            if ((jepoll.get(i).events & EPOLLERR) ||
-              (jepoll.get(i).events & EPOLLHUP) ||
-              (!(jepoll.get(i).events & EPOLLIN)))
-            {
-              /* An error has occured on this fd, or the socket is not
-                 ready for reading (why were we notified then?) */
-              fprintf (stderr, "epoll error\n");
-              close (jepoll.get(i).data.fd);
-              jepoll.del(jepoll.get(i).data.fd,NULL);
-              continue;
-            }
+            // if ((jepoll.get(i).events & EPOLLERR) ||
+            //   (jepoll.get(i).events & EPOLLHUP) ||
+            //   (!(jepoll.get(i).events & EPOLLIN)))
+            // {
+            //   /* An error has occured on this fd, or the socket is not
+            //      ready for reading (why were we notified then?) */
+            //   fprintf (stderr, "epoll error\n");
+            //   close (jepoll.get(i).data.fd);
+            //   jepoll.del(jepoll.get(i).data.fd,NULL);
+            //   continue;
+            // }
 
-            printf("%d->", jepoll.get(i).data.fd);
+            printf("push进 %d  描述符\n", jepoll.get(i).data.fd);
             qfd.push(jepoll.get(i).data.fd);
         }
         pthread_cond_broadcast(&has_product);//通知所有子线程

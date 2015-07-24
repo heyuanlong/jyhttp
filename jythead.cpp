@@ -54,16 +54,19 @@ epollevent.events=EPOLLIN | EPOLLET;//边缘触发
         qfd.pop();
         jlock.unlock();
 
-		printf("%d   %d\n", fd,serverfd);
+		printf("%d是fd   %d是serverfd\n", fd,serverfd);
 
         if(fd==serverfd){
             int ac=jsock.acceptsocket();
             if (ac == -1)continue;
 
+            epollevent.data.fd=ac;////////////////落了这句，搞死我了，哈哈啊哈哈
             jepoll.add(ac,&epollevent);
             printf("get a fd:%d\n", ac);
             continue;
         }
+
+        printf("%d描述符开始工作\n", fd);
         char request[1024]={0};
         char response[1048576]={0};//1M
 		debug(go);
@@ -92,11 +95,14 @@ epollevent.events=EPOLLIN | EPOLLET;//边缘触发
 
 
     //jsock.jywrite(fd,response,strlen(response));
-    //memset(buf,0,sizeof(request));
+
 
         strcpy(response,"HTTP/1.1 200 OK\nServer: jyhttp\nContent-Type: text/html;charset=UTF-8\nContent-Length: 40\r\n\r\n<html><body>dddddddddddddd</body></html>");
         printf("%s\n",response );
         jsock.jywrite(fd,response,strlen(response));
+
+
+        memset(request,0,sizeof(request));
         memset(response,0,sizeof(response));
 
 
