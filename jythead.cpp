@@ -60,7 +60,7 @@ epollevent.events=EPOLLIN | EPOLLET;//边缘触发
             int ac=jsock.acceptsocket();
             if (ac == -1)continue;
 
-            epollevent.data.fd=ac;////////////////落了这句，搞死我了，哈哈啊哈哈
+            epollevent.data.fd=ac;////////////////落了这句，搞死我了，啊啊啊啊啊
             jepoll.add(ac,&epollevent);
             printf("get a fd:%d\n", ac);
             continue;
@@ -105,9 +105,6 @@ epollevent.events=EPOLLIN | EPOLLET;//边缘触发
         memset(request,0,sizeof(request));
         memset(response,0,sizeof(response));
 
-
-    //    jepoll.del(fd,&epollevent);//某些情况会报错
-    //    close(fd);///可能重复关闭
 
     //如何保持长链接，何时关闭链接，如何保证不会重复jepoll.del和close
     //短链接呢？   http的知识不够！！！！

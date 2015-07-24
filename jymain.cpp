@@ -49,6 +49,7 @@ int main(int argc, char *argv[]) {
     jepoll.add(serfd,&serepollevent);
 
     int n,i;
+    struct epoll_event fordelepoll;
     while(1)
     {
         n=jepoll.wait(-1);//timeout为-1，表阻塞
@@ -56,17 +57,18 @@ int main(int argc, char *argv[]) {
         printf("epoll wait 到 %d 个描述符\n", n);
         for ( i = 0; i < n; i++) {
 
-            // if ((jepoll.get(i).events & EPOLLERR) ||
-            //   (jepoll.get(i).events & EPOLLHUP) ||
-            //   (!(jepoll.get(i).events & EPOLLIN)))
-            // {
-            //   /* An error has occured on this fd, or the socket is not
-            //      ready for reading (why were we notified then?) */
-            //   fprintf (stderr, "epoll error\n");
-            //   close (jepoll.get(i).data.fd);
-            //   jepoll.del(jepoll.get(i).data.fd,NULL);
-            //   continue;
-            // }
+            if (  jepoll.get(i).events & EPOLLERR  )
+            {
+                fprintf (stderr, "epoll EPOLLERR\n");
+                delev(jepoll,i,&fordelepoll);
+                continue;
+            }
+            if (  jepoll.get(i).events & EPOLLHUP  )
+            {
+                fprintf (stderr, "epoll EPOLLHUP\n");
+                delev(jepoll,i,&fordelepoll);
+                continue;
+            }
 
             printf("push进 %d  描述符\n", jepoll.get(i).data.fd);
             qfd.push(jepoll.get(i).data.fd);
@@ -76,8 +78,16 @@ int main(int argc, char *argv[]) {
     }
 
 
-
-
-
   return 0;
 }
+
+
+
+/*
+1.当客户端关闭tcp链接时候 或者 客户端挂掉，服务端的epoll接受到EPOLLERR
+2.360浏览器：一段时间后会自动关闭tcp，  IE浏览器不会自动关闭tcp链接。所以确保浪费资源，还得让服务器在满足一定条件的情况下主动关闭tcp链接。
+
+
+
+
+*/

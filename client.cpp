@@ -20,6 +20,7 @@ int main(int argc, char const *argv[])
 	int clientSocket = clientConnectServer("127.0.0.1", atoi(argv[1]));
 
 
+
 	char recvbuf[1024]="qwertyuiop";
 	char sendbuf[1024]="123456789";
 
@@ -36,7 +37,7 @@ int main(int argc, char const *argv[])
 	    printf("%s\n", recvbuf);
 
 
-
+while(1);
 	close(clientSocket);
 	return 0;
 }
