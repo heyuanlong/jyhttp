@@ -40,7 +40,7 @@ void* workmethod(void *arg)
 {
 int fd;
 struct epoll_event epollevent;
-epollevent.events=EPOLLIN;//边缘触发 | EPOLLET
+epollevent.events=EPOLLIN | EPOLLET;//边缘触发
 //epollevent.data.fd=serfd;
 
     while(1)

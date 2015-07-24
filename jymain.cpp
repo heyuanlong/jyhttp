@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
 
 
     struct epoll_event serepollevent;
-    serepollevent.events=EPOLLIN;//边缘触发 | EPOLLET
+    serepollevent.events=EPOLLIN | EPOLLET;//边缘触发 
     serepollevent.data.fd=serfd;
     jepoll.add(serfd,&serepollevent);
 
@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
               jepoll.del(jepoll.get(i).data.fd,NULL);
               continue;
             }
-            
+
             printf("%d->", jepoll.get(i).data.fd);
             qfd.push(jepoll.get(i).data.fd);
         }
