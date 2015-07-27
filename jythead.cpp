@@ -76,6 +76,21 @@ epollevent.events=EPOLLIN | EPOLLET;//边缘触发
 
 
 
+        // GET http://config.pinyin.sogou.com/api/toolbox/geturl.php?h=84881CE2A2F4FBAD1EA57F82BA822157&v=7.6.0.6079&r=0000_sogou_pinyin_76f HTTP/1.1
+        // User-Agent: SOGOU_UPDATER
+        // Host: config.pinyin.sogou.com
+        // Accept: */*
+        // Connection: Keep-Alive
+        //
+        //
+        // GET http://se.360.cn/cloud/picinfo.ini HTTP/1.1
+        // Host: se.360.cn
+        // Accept: */*
+        // Connection: Keep-Alive
+        // Cache-Control: no-cache
+
+
+
         //printf("%s\n", buf);
 
     // HTTP/1.1 200 OK
