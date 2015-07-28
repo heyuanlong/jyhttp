@@ -16,6 +16,10 @@ int jysock::socketinit(int n)
     saddr.sin_port = htons(port);
     saddr.sin_addr.s_addr = htonl(INADDR_ANY);
 
+    int val=1;
+    int se = setsockopt(serverfd,SOL_SOCKET,SO_REUSEADDR,(const void*)&val,sizeof(int));
+    check(se == 0,"setsockopt");//重用bind中的地址
+
     int b=bind(serverfd,(struct sockaddr *)&saddr,sizeof(saddr));
     check(b == 0,"bind");
     int l=listen(serverfd,listennum);

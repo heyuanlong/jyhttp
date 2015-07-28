@@ -24,7 +24,6 @@
 jysock jsock;
 jyepoll jepoll;
 hmx_mutex jlock;//qfd的全局锁
-jyhttp jhttp;
 pthread_cond_t has_product=PTHREAD_COND_INITIALIZER;//条件变量
 std::queue<int> qfd;//网络描述符
 

@@ -14,7 +14,6 @@ extern jyepoll jepoll;
 extern jysock jsock;
 extern pthread_cond_t has_product;
 extern hmx_mutex jlock;
-extern jyhttp jhttp;
 extern std::queue<int> qfd;
 
 
@@ -38,10 +37,16 @@ void go_theadpool(int num)
 }
 void* workmethod(void *arg)
 {
+jyhttp jhttp;
 int fd;
 struct epoll_event epollevent;
 epollevent.events=EPOLLIN | EPOLLET;//边缘触发
 //epollevent.data.fd=serfd;
+
+
+char request[1024]={0};
+char response[1048576]={0};//1M
+char filepath[1024]={0};
 
     while(1)
     {
@@ -67,11 +72,15 @@ epollevent.events=EPOLLIN | EPOLLET;//边缘触发
         }
 
         printf("%d描述符开始工作\n", fd);
-        char request[1024]={0};
-        char response[1048576]={0};//1M
+
 		debug(go);
         jsock.jyread(fd,request);
-        jhttp.run(request,response);
+        printf("下面是request：\n");
+        printf("%s\n", request);
+        printf("request输出完毕\n");
+
+        jhttp.parse(request);
+        //jyhttp.
         //
 
 
