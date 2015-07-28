@@ -74,13 +74,14 @@ ssize_t jysock::jyreadn(int fd,char *ptr,size_t n)
     ssize_t nread;
     nleft=n;
     while (nleft > 0 ) {
-        if ( (nread = recv(fd,ptr,nleft,0)) <0 ) {
+        if ( (nread = recv(fd,ptr,nleft,0)) <0 )
+        {
             if (nleft  == n)
                 return -1;
-            else
+            else//////////////////读有数据
                 break;
         }
-        else if(nread == 0) {
+        else if(nread == 0) {//读完了，或者客户端断开了！
                 break;
             }
 

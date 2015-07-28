@@ -9,6 +9,8 @@
 #include "jysock.h"
 #include "jythread.h"
 #include "jyhttp.h"
+#include "jyfunction.h"
+
 
 extern jyepoll jepoll;
 extern jysock jsock;
@@ -37,8 +39,11 @@ void go_theadpool(int num)
 }
 void* workmethod(void *arg)
 {
+
 jyhttp jhttp;
 int fd;
+int rnum;//读取返回的num
+struct epoll_event fordelepoll;//用于删除链接
 struct epoll_event epollevent;
 epollevent.events=EPOLLIN | EPOLLET;//边缘触发
 //epollevent.data.fd=serfd;
@@ -74,7 +79,17 @@ char filepath[1024]={0};
         printf("%d描述符开始工作\n", fd);
 
 		debug(go);
-        jsock.jyread(fd,request);
+        rnum = jsock.jyread(fd,request);
+        if (rnum == 0) {//也许是客户端关闭这个链接
+            fprintf (stderr, "客户端关闭了链接\n");
+            delev(jepoll,fd,&fordelepoll);
+            continue;
+        }
+        if(rnum == -1){//这个链接没用了！
+            fprintf (stderr, "关闭tcp链接!!!\n");
+            delev(jepoll,fd,&fordelepoll);
+            continue;
+        }
         printf("下面是request：\n");
         printf("%s\n", request);
         printf("request输出完毕\n");

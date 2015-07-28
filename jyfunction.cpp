@@ -71,11 +71,10 @@ void my_getopt(int argc, char *argv[],int &p,int &n)
       }
       printf("here is jyfunction:my_getopt:p:%d n:%d\n",p,n);
 }
-void delev(jyepoll &jepoll,int i,struct epoll_event *fordel)
+void delev(jyepoll &jepoll,int fd,struct epoll_event *fordel)
 {
     /* An error has occured on this fd, or the socket is not
        ready for reading (why were we notified then?) */
-    int fd=jepoll.get(i).data.fd;
     jepoll.del(fd,fordel);
     close (fd);//EPOLL_CTL_DEL才是close，否则EPOLL_CTL_DEL失败！！！！！！！！！！！！！1
 }

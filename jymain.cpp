@@ -59,13 +59,13 @@ int main(int argc, char *argv[]) {
             if (  jepoll.get(i).events & EPOLLERR  )
             {
                 fprintf (stderr, "epoll EPOLLERR\n");
-                delev(jepoll,i,&fordelepoll);
+                delev(jepoll,jepoll.get(i).data.fd,&fordelepoll);
                 continue;
             }
             if (  jepoll.get(i).events & EPOLLHUP  )
             {
                 fprintf (stderr, "epoll EPOLLHUP\n");
-                delev(jepoll,i,&fordelepoll);
+                delev(jepoll,jepoll.get(i).data.fd,&fordelepoll);
                 continue;
             }
 
