@@ -79,12 +79,20 @@ void delev(jyepoll &jepoll,int fd,struct epoll_event *fordel)
     close (fd);//EPOLL_CTL_DEL才是close，否则EPOLL_CTL_DEL失败！！！！！！！！！！！！！1
 }
 
-void read_content_type(char **str)
+void read_content_type(struct contentstruct *str)
 {
     FILE *fp=fopen("./config/content_type","r");
     check(fp != NULL,"open ./config/content_type");
 
-
-
+    char a[5];
+    char b[50];
+    int i=0;
+    while ( EOF  !=fscanf(fp,"%s %s",a,b) ) {
+        strcpy(str[i].filetype,a);
+        strcpy(str[i].contenttype,b);
+        ++i;
+    }
+    printf("%s  %s\n", str[0].filetype, str[0].contenttype);
+    printf("%s  %s\n", a,b);
 
 }

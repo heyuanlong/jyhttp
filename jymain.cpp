@@ -15,7 +15,7 @@
 
 #define  DEBUG
 #define CONTENTNUM 400
-#define LENGTH 500
+
 
 
  const char *conf_file="./conf.txt";
@@ -23,7 +23,8 @@
  int PORT;
  int THREADNUM;
  char logpath[1024];
- char content_type[CONTENTNUM][LENGTH];//存储Content-Type
+
+struct contentstruct content_type[CONTENTNUM];
 
 jysock jsock;
 jyepoll jepoll;
