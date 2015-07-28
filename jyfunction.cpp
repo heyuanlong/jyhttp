@@ -27,7 +27,7 @@ void setsignal()
 void read_conf(const char *file,int &maxe,int &p,int &n,char *logpath)
 {
     FILE* fp=fopen("conf.txt","r");
-    check(fp != NULL,"open conf_file");
+    check(fp != NULL,"open conf.txt");
     char buf[1024]={0};
 	int len;
 
@@ -77,4 +77,14 @@ void delev(jyepoll &jepoll,int fd,struct epoll_event *fordel)
        ready for reading (why were we notified then?) */
     jepoll.del(fd,fordel);
     close (fd);//EPOLL_CTL_DEL才是close，否则EPOLL_CTL_DEL失败！！！！！！！！！！！！！1
+}
+
+void read_content_type(char **str)
+{
+    FILE *fp=fopen("./config/content_type","r");
+    check(fp != NULL,"open ./config/content_type");
+
+
+
+
 }

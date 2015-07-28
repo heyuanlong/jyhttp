@@ -14,12 +14,16 @@
 #include "jyhttp.h"
 
 #define  DEBUG
+#define CONTENTNUM 400
+#define LENGTH 500
+
 
  const char *conf_file="./conf.txt";
  int MAXEVENTS;
  int PORT;
  int THREADNUM;
  char logpath[1024];
+ char content_type[CONTENTNUM][LENGTH];//存储Content-Type
 
 jysock jsock;
 jyepoll jepoll;
@@ -31,7 +35,8 @@ int serverfd;
 
 int main(int argc, char *argv[]) {
 
-    read_conf(conf_file,MAXEVENTS,PORT,THREADNUM,logpath);
+    read_conf(conf_file,MAXEVENTS,PORT,THREADNUM,logpath);//
+    read_content_type(content_type);
     my_getopt(argc,argv,PORT,THREADNUM);
 
 
