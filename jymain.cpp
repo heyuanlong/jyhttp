@@ -37,7 +37,7 @@ int serverfd;
 int main(int argc, char *argv[]) {
 
     read_conf(conf_file,MAXEVENTS,PORT,THREADNUM,logpath);//
-    read_content_type(content_type);
+    read_content_type(content_type,CONTENTNUM);
     my_getopt(argc,argv,PORT,THREADNUM);
 
 

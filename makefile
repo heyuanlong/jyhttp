@@ -12,17 +12,17 @@ client:client.cpp
 
 main:jymain.o jythead.o jysock.o jyfunction.o jyepoll.o jyhttp.o
 	$(CC1) jymain.o jythead.o jysock.o jyfunction.o jyepoll.o jyhttp.o -o main -lpthread
-jymain.o:jymain.cpp
+jymain.o:jymain.cpp jyfunction.h
 	$(CC) jymain.cpp -o jymain.o -lpthread
 jythead.o:jythead.cpp
 	$(CC) jythead.cpp -o jythead.o -lpthread
 jysock.o:jysock.cpp
 	$(CC) jysock.cpp -o jysock.o -lpthread
-jyfunction.o:jyfunction.cpp
+jyfunction.o:jyfunction.cpp jyfunction.h
 	$(CC) jyfunction.cpp -o jyfunction.o -lpthread
 jyepoll.o:jyepoll.cpp
 	$(CC) jyepoll.cpp -o jyepoll.o -lpthread
-jyhttp.o:jyhttp.cpp 
+jyhttp.o:jyhttp.cpp
 	$(CC) jyhttp.cpp -o jyhttp.o -lpthread
 
 

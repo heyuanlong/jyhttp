@@ -95,7 +95,8 @@ char filepath[1024]={0};
         printf("request输出完毕\n");
 
         jhttp.parse(request);
-        //jyhttp.
+        int res = jhttp.compound(response);
+
         //
 
 

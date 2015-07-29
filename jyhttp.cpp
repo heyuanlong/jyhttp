@@ -44,8 +44,16 @@ int jyhttp::parse(char *request)
 }
 int jyhttp::compound(char *response)
 {
-
    //先判断文件大小
+   if (filesize == 0) {//304
+       /* code */
+   }
+   else if (filesize > 0 && filesize < 1024*(1024-1) ) {
+
+   }
+   else {///使用mmap
+       /* code */
+   }
     return 0;
 }
 
