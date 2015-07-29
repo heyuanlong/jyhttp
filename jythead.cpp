@@ -137,8 +137,8 @@ char filepath[1024]={0};
     //jsock.jywrite(fd,response,strlen(response));
 
 
-        strcpy(response,"HTTP/1.1 200 OK\nServer: jyhttp\nContent-Type: text/html;charset=UTF-8\nContent-Length: 40\r\n\r\n<html><body>dddddddddddddd</body></html>");
-        printf("%s\n",response );
+    //    strcpy(response,"HTTP/1.1 200 OK\nServer: jyhttp\nContent-Type: text/html;charset=UTF-8\nContent-Length: 40\r\n\r\n<html><body>dddddddddddddd</body></html>");
+    //    printf("%s\n",response );
         jsock.jywrite(fd,response,strlen(response));
 
 
